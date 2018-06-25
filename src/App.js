@@ -61,6 +61,10 @@ class App extends Component {
           <Table
               columns={columns}
               dataSource={data}
+              rowKey={(record) => {
+	              let id = record.url.slice(-2).charAt(0)
+                return id
+              }}
           />
         </Layout>
       </div>
