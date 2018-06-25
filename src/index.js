@@ -17,13 +17,9 @@ ReactDOM.render(
         <Router>
             <Switch>
                 <Route exact path='/' component={App}/>
-                <Route path='/pokemonItem/:id'
-                       render={ (props) => {
-                           return (<PokemonItem/>)
-                       }
-
-
-                       }
+                <Route
+                    path='/pokemonItem/:id'
+                    component={PokemonItem}
                 />
             </Switch>
         </Router>
