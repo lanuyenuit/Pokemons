@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from "react-redux";
-import {Card} from 'antd'
+import {Card, Spin} from 'antd'
 const { Meta } = Card;
 
 
@@ -11,7 +11,15 @@ class PokemonItem extends Component {
     }
 
     render() {
-        let {current_pokemon} = this.props
+        let {current_pokemon, loading} = this.props
+
+        if (loading) {
+            return (
+                <div className="example">
+                  <Spin />
+                </div>
+            )
+        }
         return (
 
             <Card
