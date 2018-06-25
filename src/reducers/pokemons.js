@@ -12,7 +12,11 @@ const initialState = {
   loading: false,
   error: null,
   currentPokemon: {},
-  sprites: {},
+  pokemonItem: {
+    sprites: {
+      back_default: ''
+    }
+  },
   url: ''
 
 }
@@ -48,10 +52,11 @@ let productReducer = (state = initialState, action) => {
         currentPokemon: action.payload.pokemon
 
       }
+
     case FETCH_POKEMON_ITEM_BEGIN:
       return {
         ...state,
-        loading: false,
+        loading: true,
         error: null,
         url:action.payload.url
       }
@@ -60,9 +65,8 @@ let productReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        sprites: action.payload.sprites
+        pokemonItem: action.payload.pokemonItem
       }
-
 
     default:
       return state

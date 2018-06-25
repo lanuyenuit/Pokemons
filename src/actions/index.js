@@ -7,7 +7,7 @@ export function fetchPokemons () {
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {
-        // console.log(json)
+        console.log('son',json)
         dispatch(fetchPokemonsSuccess(json.results))
         return json.results
       })
@@ -22,8 +22,8 @@ export function fetchPokemonItem (url) {
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {
-        dispatch(fetchPokemonItemSuccess(json.sprites))
-        return json.sprites
+        dispatch(fetchPokemonItemSuccess(json))
+        return json
       })
       // .catch(error => dispatch(fetchPokemonsFailure(error)))
   }
@@ -69,9 +69,9 @@ export const choosePokemon = pokemon => ({
   payload: { pokemon }
 })
 
-export const fetchPokemonItemSuccess = sprites => ({
+export const fetchPokemonItemSuccess = pokemonItem => ({
   type: FETCH_POKEMON_ITEM_SUCCESS,
-  payload: { sprites }
+  payload: { pokemonItem }
 })
 
 

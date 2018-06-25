@@ -8,7 +8,7 @@ const { Meta } = Card
 
 class PokemonItem extends Component {
   render () {
-    let {img, loading} = this.props
+    let {img, loading, name} = this.props
 
     if (loading) {
       return (
@@ -17,18 +17,24 @@ class PokemonItem extends Component {
         </div>
       )
     }
+    let isSprites = (typeof(img) === 'undefined')
     return (
+      <div>
+        { !isSprites &&
+          <Card
+            hoverable
+            style={{ width: '50%' }}
+            cover={<img alt='example' src={img} style={{ width: '96px'}}/>}
+            extra={<Link to='/' >X</Link>}
+          >
+            <Meta
+              title={name}
+              // description={}
+            />
+          </Card>
+        }
 
-      <Card
-        hoverable
-        style={{ width: '50%' }}
-        cover={<img alt='example' src={img} style={{ width: '96px'}}/>}
-        extra={<Link to='/' >X</Link>}
-      >
-        <Meta
-          // description={currentPokemon.url}
-        />
-      </Card>
+      </div>
 
 
     )
@@ -36,9 +42,10 @@ class PokemonItem extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("ww",state.pokemons.sprites.back_default)
   return {
-    img: state.pokemons.sprites.back_default
+    loading: state.pokemons.loading,
+    name: state.pokemons.pokemonItem.name,
+    img: state.pokemons.pokemonItem.sprites.back_default
   }
 }
 
