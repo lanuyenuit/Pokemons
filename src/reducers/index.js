@@ -2,7 +2,7 @@ import pokemons from './pokemons'
 import {combineReducers} from 'redux'
 
 const reducer = combineReducers({
-	pokemons
+  pokemons
 })
 
 export default reducer
