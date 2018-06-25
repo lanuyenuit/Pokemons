@@ -1,16 +1,31 @@
 import fetch from 'isomorphic-fetch'
 
-export function fetchProducts () {
+export function fetchPokemons () {
   return dispatch => {
-    dispatch(fetchProductsBegin())
+    dispatch(fetchPokemonsBegin())
     return fetch('https://pokeapi.co/api/v2/pokemon/')
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {
-        dispatch(fetchProductsSuccess(json.results))
+        // console.log(json)
+        dispatch(fetchPokemonsSuccess(json.results))
         return json.results
       })
-      .catch(error => dispatch(fetchProductsFailure(error)))
+      .catch(error => dispatch(fetchPokemonsFailure(error)))
+  }
+}
+
+export function fetchPokemonItem (url) {
+  return dispatch => {
+    dispatch(fetchPokemonItemBegin(url))
+    return fetch(url)
+      .then(handleErrors)
+      .then(res => res.json())
+      .then(json => {
+        dispatch(fetchPokemonItemSuccess(json.sprites))
+        return json.sprites
+      })
+      // .catch(error => dispatch(fetchPokemonsFailure(error)))
   }
 }
 
@@ -22,26 +37,41 @@ let handleErrors = (response) => {
   return response
 }
 
-export const FETCH_PRODUCTS_BEGIN = 'FETCH_PRODUCTS_BEGIN'
-export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS'
-export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE'
+export const FETCH_POKEMONS_BEGIN = 'FETCH_POKEMONS_BEGIN'
+export const FETCH_POKEMONS_SUCCESS = 'FETCH_POKEMONS_SUCCESS'
+export const FETCH_POKEMONS_FAILURE = 'FETCH_POKEMONS_FAILURE'
 export const CHOOSE_POKEMON = 'CHOOSE_POKEMON'
 
-export const fetchProductsBegin = () => ({
-  type: FETCH_PRODUCTS_BEGIN
+export const FETCH_POKEMON_ITEM_BEGIN = 'FETCH_POKEMON_ITEM_BEGIN'
+export const FETCH_POKEMON_ITEM_SUCCESS = 'FETCH_POKEMON_ITEM_SUCCESS'
+
+export const fetchPokemonsBegin = () => ({
+  type: FETCH_POKEMONS_BEGIN
 })
 
-export const fetchProductsSuccess = results => ({
-  type: FETCH_PRODUCTS_SUCCESS,
+export const fetchPokemonsSuccess = results => ({
+  type: FETCH_POKEMONS_SUCCESS,
   payload: { results }
 })
 
-export const fetchProductsFailure = error => ({
-  type: FETCH_PRODUCTS_FAILURE,
+export const fetchPokemonsFailure = error => ({
+  type: FETCH_POKEMONS_FAILURE,
   payload: { error }
+})
+
+export const fetchPokemonItemBegin = (url) => ({
+  type: FETCH_POKEMON_ITEM_BEGIN,
+  payload: url
 })
 
 export const choosePokemon = pokemon => ({
   type: CHOOSE_POKEMON,
   payload: { pokemon }
 })
+
+export const fetchPokemonItemSuccess = sprites => ({
+  type: FETCH_POKEMON_ITEM_SUCCESS,
+  payload: { sprites }
+})
+
+

@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import {Card, Spin} from 'antd'
 const { Meta } = Card
 
 class PokemonItem extends Component {
   render () {
-    let {currentPokemon, loading} = this.props
+    let {img, loading} = this.props
 
     if (loading) {
       return (
@@ -21,25 +21,24 @@ class PokemonItem extends Component {
 
       <Card
         hoverable
-        style={{ width: 240 }}
-        cover={<img alt='example' src='/pokeball.png' />}
+        style={{ width: '50%' }}
+        cover={<img alt='example' src={img} style={{ width: '96px'}}/>}
         extra={<Link to='/' >X</Link>}
       >
         <Meta
-          title={currentPokemon.name}
-          description={currentPokemon.url}
+          // description={currentPokemon.url}
         />
       </Card>
+
+
     )
   }
 }
 
 const mapStateToProps = state => {
+  console.log("ww",state.pokemons.sprites.back_default)
   return {
-    results: state.pokemons.results,
-    loading: state.pokemons.loading,
-    error: state.pokemons.error,
-    currentPokemon: state.pokemons.currentPokemon
+    img: state.pokemons.sprites.back_default
   }
 }
 

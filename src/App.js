@@ -8,7 +8,10 @@ import {Link} from 'react-router-dom'
 
 import { connect } from 'react-redux'
 import store from './myStore'
-import { fetchProducts, choosePokemon } from './actions/index'
+import {
+  fetchPokemons,
+  fetchPokemonItem,
+} from './actions/index'
 
 const columns = [{
   title: 'URL',
@@ -24,7 +27,7 @@ const columns = [{
   render: (text, record, _) => {
     let id = record.url.slice(-2).charAt(0)
     return (
-      <span onClick={() => store.dispatch(choosePokemon(record))}>
+      <span onClick={() => store.dispatch(fetchPokemonItem(record.url))}>
         <Link to={`/pokemonItem/${id}`} >Detail</Link>
       </span>
     )
@@ -33,7 +36,7 @@ const columns = [{
 
 class App extends Component {
   componentDidMount () {
-    this.props.dispatch(fetchProducts())
+    this.props.dispatch(fetchPokemons())
   }
 
   render () {

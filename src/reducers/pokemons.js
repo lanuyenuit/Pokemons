@@ -1,8 +1,9 @@
 import {
-  FETCH_PRODUCTS_BEGIN,
-  FETCH_PRODUCTS_SUCCESS,
-  FETCH_PRODUCTS_FAILURE,
-  CHOOSE_POKEMON
+  FETCH_POKEMONS_BEGIN,
+  FETCH_POKEMONS_SUCCESS,
+  FETCH_POKEMONS_FAILURE,
+  CHOOSE_POKEMON,
+  FETCH_POKEMON_ITEM_BEGIN, FETCH_POKEMON_ITEM_SUCCESS
 
 } from '../actions/index'
 
@@ -10,27 +11,29 @@ const initialState = {
   results: [],
   loading: false,
   error: null,
-  currentPokemon: {}
+  currentPokemon: {},
+  sprites: {},
+  url: ''
 
 }
 
 let productReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_PRODUCTS_BEGIN:
+    case FETCH_POKEMONS_BEGIN:
       return {
         ...state,
         loading: true,
         error: null
       }
 
-    case FETCH_PRODUCTS_SUCCESS:
+    case FETCH_POKEMONS_SUCCESS:
       return {
         ...state,
         loading: false,
         results: action.payload.results
       }
 
-    case FETCH_PRODUCTS_FAILURE:
+    case FETCH_POKEMONS_FAILURE:
       return {
         ...state,
         loading: false,
@@ -45,6 +48,21 @@ let productReducer = (state = initialState, action) => {
         currentPokemon: action.payload.pokemon
 
       }
+    case FETCH_POKEMON_ITEM_BEGIN:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        url:action.payload.url
+      }
+
+    case FETCH_POKEMON_ITEM_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        sprites: action.payload.sprites
+      }
+
 
     default:
       return state
